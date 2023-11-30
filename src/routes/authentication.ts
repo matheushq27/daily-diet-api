@@ -34,8 +34,9 @@ export async function authenticationRoutes(app: FastifyInstance) {
       return resp.status(404).send();
     }
 
+    const { sessionId } = setCookie(resp);
+    
     if (!user.session_id) {
-      const { sessionId } = setCookie(resp);
       await knex(tableUsers).where("id", user.id).update({
         session_id: sessionId,
       });
@@ -43,6 +44,6 @@ export async function authenticationRoutes(app: FastifyInstance) {
       user.session_id = sessionId;
     }
 
-    return resp.status(201).send({ user });
+    return resp.status(200).send({ user });
   });
 }

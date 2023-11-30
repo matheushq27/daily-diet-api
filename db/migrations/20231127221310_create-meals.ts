@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     table.increments("id").primary();
     table.string("name").notNullable();
     table.string("description").notNullable();
+    table.boolean("included");
     table.timestamp("date_time").notNullable();
     table.uuid("user_id").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now()).notNullable();

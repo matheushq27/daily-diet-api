@@ -16,3 +16,15 @@ export const passwordSchema = z
   .refine((password) => /[^a-zA-Z0-9]/.test(password), {
     message: "A senha deve conter pelo menos um caractere especial",
   });
+
+  const isValidDateTime = (str: string): boolean => {
+    const regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
+    return regex.test(str);
+  };
+  
+  const _dateTimeSchema = z.string().refine(isValidDateTime, {
+    message: "Formato da data inválido. Use YYYY-MM-DD HH:mm:ss",
+  });
+
+  export const dateTimeSchema = _dateTimeSchema
+  _dateTimeSchema
